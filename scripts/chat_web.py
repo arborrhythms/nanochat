@@ -245,11 +245,17 @@ async def root():
     ui_html_path = os.path.join("nanochat", "ui.html")
     with open(ui_html_path, "r", encoding="utf-8") as f:
         html_content = f.read()
-    # Replace the API_URL to use the same origin
-    html_content = html_content.replace(
+    # Ensure API_URL auto-detects the base path from the current URL.
+    # At /nanochat/ this yields '/nanochat'; at / it yields '' (standalone).
+    # Handle both the original Karpathy string and the hardcoded empty string.
+    for old_api_url in [
         "const API_URL = `http://${window.location.hostname}:8000`;",
-        "const API_URL = '';"
-    )
+        "const API_URL = '';",
+    ]:
+        html_content = html_content.replace(
+            old_api_url,
+            "const API_URL = window.location.pathname.replace(/\\/$/, '');"
+        )
     return HTMLResponse(content=html_content)
 
 
