@@ -5,6 +5,19 @@ dev-ignore/
 report.md
 eval_bundle/
 
+# Training artifacts
+base_checkpoints/
+base_data/
+base_eval/
+chatsft_checkpoints/
+report/
+tokenizer/
+eval_bundle.zip
+eval_bundle.zip.lock
+identity_conversations.jsonl
+words_alpha.txt
+words_alpha.txt.lock
+
 # Secrets
 .env
 
